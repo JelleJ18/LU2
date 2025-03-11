@@ -1,16 +1,21 @@
 using Lu2Project.WebApi.Repositories;
+using Lu2Project.WebApi.Services;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 builder.Services.AddControllers();
-builder.Services.AddOpenApi(); // OpenAPI (Swagger)
+builder.Services.AddOpenApi(); 
 builder.Services.AddScoped<IEnvironmentRepository, EnvironmentRepository>();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<IAuthenticationService, AspNetIdentityAuthenticationService>();
 
 // Controleer of de SQL Connection String is gevonden
 var sqlConnectionString = builder.Configuration.GetValue<string>("SqlConnectionString");
 var sqlConnectionStringFound = !string.IsNullOrWhiteSpace(sqlConnectionString);
+
 Console.WriteLine($"SqlConnectionString: {sqlConnectionString}");
 Console.WriteLine($"SqlConnectionString found: {sqlConnectionStringFound}");
 
@@ -19,14 +24,14 @@ builder.Services.AddAuthorization();
 builder.Services
     .AddIdentityApiEndpoints<IdentityUser>(options =>
     {
-        options.User.RequireUniqueEmail = true; // Vereist een uniek e-mailadres
-        options.Password.RequiredLength = 10;   // Minimale wachtwoordlengte
-        options.Password.RequireDigit = true;   // Vereist een cijfer
-        options.Password.RequireLowercase = true; // Vereist een kleine letter
-        options.Password.RequireUppercase = true; // Vereist een hoofdletter
-        options.Password.RequireNonAlphanumeric = true; // Vereist een speciaal teken
+        options.User.RequireUniqueEmail = true; 
+        options.Password.RequiredLength = 8;   
+        options.Password.RequireDigit = true;  
+        options.Password.RequireLowercase = true; 
+        options.Password.RequireUppercase = true; 
+        options.Password.RequireNonAlphanumeric = true; 
     })
-    .AddRoles<IdentityRole>() // Voeg ondersteuning voor rollen toe
+    .AddRoles<IdentityRole>() 
     .AddDapperStores(options =>
     {
         options.ConnectionString = builder.Configuration.GetConnectionString("DapperIdentity"); // Gebruik de connection string
@@ -34,23 +39,18 @@ builder.Services
 
 var app = builder.Build();
 
-// Configureer de HTTP-request pipeline
 app.UseHttpsRedirection();
 app.UseAuthorization();
 
-// Map Identity API endpoints
 app.MapGroup("/account").MapIdentityApi<IdentityUser>();
 
-// Homepage-route
 app.MapGet("/", () => $"The API is up. Connection string found: {(sqlConnectionStringFound ? "yes" : "no")}");
 
-// OpenAPI (Swagger) alleen in development
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
-// Vereis autorisatie voor alle controllers
 app.MapControllers().RequireAuthorization();
 
 app.Run();
