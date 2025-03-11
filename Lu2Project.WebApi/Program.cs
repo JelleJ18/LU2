@@ -10,7 +10,12 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<IEnvironmentRepository, EnvironmentRepository>();
 
+var sqlConnectionString= builder.Configuration.GetValue<string>("SqlConnectionString");
+var sqlConnectionStringFound = !string.IsNullOrWhiteSpace(sqlConnectionString);
+
 var app = builder.Build();
+
+app.MapGet("/", () => $"The API is up . Connection string found: {(sqlConnectionStringFound ? "" : "")}");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
