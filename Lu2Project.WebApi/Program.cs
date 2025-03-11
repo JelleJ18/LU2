@@ -17,7 +17,7 @@ Console.WriteLine($"SqlConnectionString found: {sqlConnectionStringFound}");
 
 var app = builder.Build();
 
-app.MapGet("/", () => $"The API i up. Connection string found: {(sqlConnectionStringFound ? "yes" : "no")}");
+app.MapGet("/", () => $"The API is up. Connection string found: {(sqlConnectionStringFound ? "yes" : "no")}" + sqlConnectionString);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
