@@ -7,7 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi(); 
-builder.Services.AddScoped<IEnvironmentRepository, EnvironmentRepository>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IAuthenticationService, AspNetIdentityAuthenticationService>();
@@ -40,6 +39,7 @@ builder.Services
 var app = builder.Build();
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapGroup("/account").MapIdentityApi<IdentityUser>();
@@ -49,7 +49,6 @@ app.MapGet("/", () => $"The API is up. Connection string found: {(sqlConnectionS
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.UseSwagger();
 }
 
 app.MapControllers().RequireAuthorization();
