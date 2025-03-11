@@ -49,6 +49,7 @@ app.MapGet("/", () => $"The API is up. Connection string found: {(sqlConnectionS
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
 }
 
 app.MapControllers().RequireAuthorization();
