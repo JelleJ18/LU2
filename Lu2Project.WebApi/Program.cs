@@ -12,10 +12,12 @@ builder.Services.AddScoped<IEnvironmentRepository, EnvironmentRepository>();
 
 var sqlConnectionString= builder.Configuration.GetValue<string>("SqlConnectionString");
 var sqlConnectionStringFound = !string.IsNullOrWhiteSpace(sqlConnectionString);
+Console.WriteLine($"SqlConnectionString: {sqlConnectionString}");
+Console.WriteLine($"SqlConnectionString found: {sqlConnectionStringFound}");
 
 var app = builder.Build();
 
-app.MapGet("/", () => $"The API is up . Connection string found: {(sqlConnectionStringFound ? "" : "")}");
+app.MapGet("/", () => $"The API i up. Connection string found: {(sqlConnectionStringFound ? "yes" : "no")}");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
