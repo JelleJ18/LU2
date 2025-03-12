@@ -33,7 +33,7 @@ builder.Services
     .AddRoles<IdentityRole>() 
     .AddDapperStores(options =>
     {
-        options.ConnectionString = builder.Configuration.GetConnectionString("DapperIdentity"); // Gebruik de connection string
+        options.ConnectionString = sqlConnectionString; // Gebruik de connection string
     });
 
 var app = builder.Build();
