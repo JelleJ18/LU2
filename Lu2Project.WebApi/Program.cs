@@ -10,7 +10,7 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IAuthenticationService, AspNetIdentityAuthenticationService>();
-
+builder.Services.AddScoped<IEnvironmentRepository, EnvironmentRepository>();
 // Controleer of de SQL Connection String is gevonden
 var sqlConnectionString = builder.Configuration.GetValue<string>("SqlConnectionString");
 var sqlConnectionStringFound = !string.IsNullOrWhiteSpace(sqlConnectionString);
