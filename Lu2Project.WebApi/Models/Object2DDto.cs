@@ -21,7 +21,5 @@ namespace Lu2Project.WebApi.Models
         public float ScaleY { get; set; }
         [Required]
         public float RotationZ { get; set; }
-        [Required]
-        public int SortingLayer { get; set; }
     }
 }

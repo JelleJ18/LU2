@@ -40,8 +40,8 @@ namespace Lu2Project.WebApi.Repositories
         {
             using var connection = new SqlConnection(_connectionString);
             var query = @"
-                INSERT INTO [Object2D] (Id, PrefabId, PositionX, PositionY, ScaleX, ScaleY, RotationZ, SortingLayer, EnvironmentId) 
-                VALUES (@Id, @PrefabId, @PositionX, @PositionY, @ScaleX, @ScaleY, @RotationZ, @SortingLayer, @EnvironmentId);
+                INSERT INTO [Object2D] (Id, PrefabId, PositionX, PositionY, ScaleX, ScaleY, RotationZ, EnvironmentId) 
+                VALUES (@Id, @PrefabId, @PositionX, @PositionY, @ScaleX, @ScaleY, @RotationZ, @EnvironmentId);
                 SELECT * FROM [Object2D] WHERE Id = @Id;";
 
             if (obj.Id == Guid.Empty)
@@ -63,7 +63,6 @@ namespace Lu2Project.WebApi.Repositories
                     ScaleX = @ScaleX, 
                     ScaleY = @ScaleY, 
                     RotationZ = @RotationZ, 
-                    SortingLayer = @SortingLayer,
                     EnvironmentId = @EnvironmentId
                 WHERE Id = @Id;
                 SELECT * FROM [Object2D] WHERE Id = @Id;";
