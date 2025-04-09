@@ -45,10 +45,15 @@ namespace Lu2Project.WebApi.Controllers
         [HttpGet("environment/{environmentId}")]
         public async Task<ActionResult<IEnumerable<Object2DDto>>> GetByEnvironmentId(Guid environmentId)
         {
+            if (environmentId == Guid.Empty)
+            {
+                return BadRequest("Ongeldige wereld GUID");
+            }
+
             var objects = await _repository.GetByEnvironmentId(environmentId);
             if (!objects.Any())
             {
-                return NoContent();
+                return NotFound();
             }
             return Ok(objects);
         }
