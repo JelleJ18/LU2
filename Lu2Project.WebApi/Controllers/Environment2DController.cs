@@ -17,8 +17,8 @@ namespace Lu2Project.WebApi.Controllers
             _repository = repository;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Environment2D>>> GetAll(string UserName)
+        [HttpGet("userworlds")]
+        public async Task<ActionResult<IEnumerable<Environment2D>>> GetAll([FromQuery]string UserName)
         {
             var environments = await _repository.GetAll(UserName);
             if (!environments.Any())
