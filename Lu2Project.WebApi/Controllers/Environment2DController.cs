@@ -125,7 +125,7 @@ namespace Lu2Project.WebApi.Controllers
             foreach (var obj in data.Objects)
             {
                 obj.EnvironmentId = savedEnvironment.Id;
-                await objectRepository.Add(obj);
+                await objectRepository.Add(obj);  
             }
 
             return Ok(new
@@ -134,5 +134,6 @@ namespace Lu2Project.WebApi.Controllers
                 ObjectCount = data.Objects.Count
             });
         }
+
     }
 }
