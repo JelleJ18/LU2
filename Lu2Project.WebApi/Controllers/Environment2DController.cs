@@ -47,6 +47,12 @@ namespace Lu2Project.WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
+
+            if(environment.Id == Guid.Empty)
+            {
+                environment.Id = Guid.NewGuid();
+            }
+
             var createdEnvironment = await _repository.Add(environment);
             return CreatedAtAction(nameof(GetById), new { id = createdEnvironment.Id }, createdEnvironment);
         }
