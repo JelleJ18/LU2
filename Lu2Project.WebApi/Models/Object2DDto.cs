@@ -10,7 +10,7 @@ namespace Lu2Project.WebApi.Models
         [Required]
         public Guid EnvironmentId { get; set; }
         [Required]
-        public int PrefabId { get; set; }
+        public string PrefabId { get; set; }
         [Required]
         public float PositionX { get; set; }
         [Required]
