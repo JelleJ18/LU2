@@ -12,11 +12,11 @@ namespace Lu2Project.WebApi.Models
         public string Name { get; set; }
 
         [Required]
-        [Range(1, 256, ErrorMessage = "The length must be larger than 0 and smaller than 257.")]
+        [Range(20, 200, ErrorMessage = "The length must be larger than 0 and smaller than 257.")]
         public int MaxLength { get; set; }
 
         [Required]
-        [Range(1, 256, ErrorMessage = "The height must be larger than 0 and smaller than 257")]
+        [Range(10, 100, ErrorMessage = "The height must be larger than 0 and smaller than 257")]
         public int MaxHeight { get; set; }
 
         [Required]
