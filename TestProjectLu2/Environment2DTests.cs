@@ -12,7 +12,7 @@ using Moq;
 namespace Lu2Project.WebApi.Tests
 {
     [TestClass]
-    public class Environment2DControllerTests
+    public class Environment2DTests
     {
         private Mock<IEnvironmentRepository> _mockRepo;
         private Environment2DController _controller;
