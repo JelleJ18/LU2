@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
